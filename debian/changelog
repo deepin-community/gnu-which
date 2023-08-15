@@ -1,5 +1,21 @@
-template-repository (1.0-1) unstable; urgency=medium
+gnu-which (2.21+dfsg-3) unstable; urgency=medium
 
-  * Initial release
+  * debian/clean: Make sure that directory ends with trailing slash
+    to avoid FTBFS with recent debhelper.
+  * debian/control: Bump Standards-Version to 4.6.2.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Boyuan Yang <byang@debian.org>  Thu, 03 Aug 2023 19:04:38 -0400
+
+gnu-which (2.21+dfsg-2) unstable; urgency=medium
+
+  * Source-only upload.
+  * debian/rules: Install NEWS files as upstream changelog.
+
+ -- Boyuan Yang <byang@debian.org>  Tue, 22 Mar 2022 18:15:59 -0400
+
+gnu-which (2.21+dfsg-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #992539)
+    + Exclude which.info and which.texi files for non-free license.
+
+ -- Boyuan Yang <byang@debian.org>  Wed, 16 Mar 2022 06:13:36 -0400

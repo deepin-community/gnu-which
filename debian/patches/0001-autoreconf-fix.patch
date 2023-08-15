@@ -1,0 +1,63 @@
+From: Boyuan Yang <byang@debian.org>
+Date: Thu, 19 Aug 2021 16:25:35 -0400
+Subject: autoreconf fix
+
+Make sure we do not need macros from cwautomacros.
+
+Forwarded: no
+---
+ Makefile.am       |  2 +-
+ configure.ac      | 12 +++++++-----
+ m4/.placeholder   |  0
+ tilde/Makefile.am |  2 +-
+ 4 files changed, 9 insertions(+), 7 deletions(-)
+ create mode 100644 m4/.placeholder
+
+diff --git a/Makefile.am b/Makefile.am
+index 84176c3..92bb164 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,5 +1,5 @@
+ AUTOMAKE_OPTIONS = no-texinfo.tex
+-ACLOCAL_AMFLAGS=@ACLOCAL_CWFLAGS@
++ACLOCAL_AMFLAGS = -I m4
+ 
+ SUBDIRS = tilde .
+ 
+diff --git a/configure.ac b/configure.ac
+index 172e345..62b3f93 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,12 +1,14 @@
+ dnl Process this file with autoconf to produce a configure script.
+ AC_INIT([which], [2.21])
+-AC_CONFIG_SRCDIR(which.c)
+-AM_INIT_AUTOMAKE
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_SRCDIR([which.c])
++AC_CONFIG_MACRO_DIR([m4])
++AC_CONFIG_AUX_DIR([build-aux])
++AM_INIT_AUTOMAKE([subdir-objects foreign])
++AM_CONFIG_HEADER([config.h])
+ AM_MAINTAINER_MODE
+ 
+-dnl Because we use cwautomacros.
+-CW_AUTOMACROS
++dnl Debian-specific: patch out any cwautomacros usage.
++dnl CW_AUTOMACROS
+ 
+ which_cv_iberty=yes
+ AC_ARG_ENABLE(iberty,
+diff --git a/m4/.placeholder b/m4/.placeholder
+new file mode 100644
+index 0000000..e69de29
+diff --git a/tilde/Makefile.am b/tilde/Makefile.am
+index 4947448..1dff1d7 100644
+--- a/tilde/Makefile.am
++++ b/tilde/Makefile.am
+@@ -1,4 +1,4 @@
+-ACLOCAL_AMFLAGS=@ACLOCAL_CWFLAGS@
++ACLOCAL_AMFLAGS = -I m4
+ AUTOMAKE_OPTIONS = foreign
+ noinst_LIBRARIES = libtilde.a
+ libtilde_a_SOURCES = tilde.c shell.c tilde.h ansi_stdlib.h bashansi.h xmalloc.h

@@ -1,15 +1,24 @@
-Source: template-repository
-Section: unknown
+Source: gnu-which
+Section: utils
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Boyuan Yang <byang@debian.org>
+Build-Depends:
+ debhelper-compat (= 13),
+Standards-Version: 4.6.2
+Rules-Requires-Root: no
+Homepage: https://savannah.gnu.org/projects/which
+Vcs-Browser: https://salsa.debian.org/debian/gnu-which
+Vcs-Git: https://salsa.debian.org/debian/gnu-which.git
 
-Package: template-repository
+Package: gnu-which
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ debianutils (<< 5.1-2~),
+Provides: which
+Description: Utility to show the full path of commands
+ This package provides GNU implementation of which command.
+ This tool provides the functionality to show the full path
+ of commands.

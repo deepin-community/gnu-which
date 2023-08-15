@@ -1,0 +1,6 @@
+Name: which
+Link: /usr/bin/which
+Alternative: /usr/bin/which.gnu
+Dependents:
+ /usr/share/man/man1/which.1.gz which.1.gz /usr/share/man/man1/which.gnu.1.gz
+Priority: 400
