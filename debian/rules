@@ -1,4 +1,28 @@
 #!/usr/bin/make -f
+# -*- makefile -*-
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE=1
+
+# see FEATURE AREAS in dpkg-buildflags(1)
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# for DEB_SOURCE
+include /usr/share/dpkg/default.mk
 
 %:
 	dh $@
+
+BINPKG_NAME = $(DEB_SOURCE)
+BUILD_PREFIX = $(CURDIR)/debian/$(BINPKG_NAME)/usr/
+
+execute_before_dh_autoreconf:
+	mkdir m4
+
+execute_after_dh_auto_install:
+	mv $(BUILD_PREFIX)/bin/which \
+	        $(BUILD_PREFIX)/bin/which.gnu
+	mv $(BUILD_PREFIX)/share/man/man1/which.1 \
+	        $(BUILD_PREFIX)/share/man/man1/which.gnu.1
+
+override_dh_installchangelogs:
+	dh_installchangelogs NEWS
